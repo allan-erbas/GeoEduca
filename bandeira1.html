@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz de bandeiras</title>
+  <link rel="stylesheet" href="estilo/style.css">
+  <style>
+    body {
+      background-color: #ffffff;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    img {
+      display: block;
+      margin: 20px auto;
+      width: 400px;
+      border-radius: 20px;
+      border: 4px solid #2784CD;
+    }
+    h1 {
+      font-size: 60px;
+      color: #2784CD;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    button {
+      width: 300px;
+      height: 80px;
+      font-size: 1.5em;
+      border-radius: 20px;
+      border: none;
+      background-color: #2784CD;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #1c5e92;
+    }
+    #feedback {
+      font-size: 40px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz de Bandeiras</h1>
+  <img id="bandeira" src="" alt="Bandeira">
+  
+  <div class="options">
+    <button onclick="responder('a')">Brasil</button>
+    <button onclick="responder('b')">Argentina</button>
+    <button onclick="responder('c')">EUA</button>
+    <button onclick="responder('d')">Japão</button>
+    <button onclick="responder('e')">França</button>
+  </div>
+  
+  <p id="feedback"></p>
+
+  <script>
+    const lista = ["imagens/eua.png ", "imagens/brasil.png ", "imagens/frança.png", "imagens/argentina.png ", "imagens/Japo.png "];
+    const gabarito = ["c", "a", "e", "b", "d"];
+
+    let indice = 0;
+
+    function mostrarPergunta() {
+      document.getElementById("bandeira").src = lista[indice];
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function responder(opcao) {
+      const feedback = document.getElementById("feedback");
+      if (opcao === gabarito[indice]) {
+        feedback.textContent = "✅ Correto!";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = "❌ Errado! Resposta certa: " + gabarito[indice].toUpperCase();
+        feedback.style.color = "red";
+      }
+
+      setTimeout(() => {
+        indice++;
+        if (indice < lista.length) {
+          mostrarPergunta();
+        } else {
+          document.getElementById("bandeira").style.display = "none";
+          feedback.textContent = "🎉 Fim do quiz!";
+          feedback.style.color = "#2784CD";
+        }
+      }, 1500);
+    }
+
+    mostrarPergunta();
+  </script>
+</body>
+</html>
